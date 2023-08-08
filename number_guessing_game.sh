@@ -65,6 +65,23 @@ function CHECK_GAME_CONDITION(){
 
 }
 
+function UPDATE_IF_BEST_GAME(){
+  
+  if [[ -z $BEST_GAME ]] || (( $BEST_GAME > $TOTAL_GUESSES ))
+  then
+    UPDATE_BEST_GAME_RESULT=$($PSQL "UPDATE players SET best_game = '$TOTAL_GUESSES' WHERE name = '$INPUT_USERNAME'")
+  fi
+}
+
+function INCREMENT_GAMES_PLAYED(){
+
+  if [[ -z $GAMES_PLAYED ]] || (( $GAMES_PLAYED == -1 ))
+  then
+    GAMES_PLAYED=0
+  fi
+
+  INCREMENT_GAMES_RESULT=$($PSQL "UPDATE players SET games_played = '$(( $GAMES_PLAYED + 1 ))' WHERE name = '$INPUT_USERNAME'")
+}
 
 re_numeric="^[0-9]{1,4}$"
 SECRET_NUM=$(( $RANDOM % 1001 ))
