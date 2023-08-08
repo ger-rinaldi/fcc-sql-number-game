@@ -47,6 +47,25 @@ function USER_WELCOME(){
 
 }
 
+function CHECK_GAME_CONDITION(){
+
+  if ! [[ $GUESS =~ $re_numeric ]]
+  then
+    echo "That is not an integer, guess again:"
+  elif (( $GUESS < $SECRET_NUM))
+  then
+    echo "It's higher than that, guess again:"
+  elif (( $GUESS > $SECRET_NUM))
+  then 
+    echo "It's lower than that, guess again:"
+  else
+    echo "You guessed it in $TOTAL_GUESSES tries. The secret number was $SECRET_NUM. Nice job!"
+    UPDATE_IF_BEST_GAME
+  fi
+
+}
+
+
 re_numeric="^[0-9]{1,4}$"
 SECRET_NUM=$(( $RANDOM % 1001 ))
 TOTAL_GUESSES=0
