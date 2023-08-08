@@ -2,6 +2,13 @@
 
 PSQL="psql -U freecodecamp -d number_guess --tuples-only --no-align -c"
 
+function INPUT_USER_PLAYERNAME(){
+
+  echo "Enter your username:"
+  read INPUT_USERNAME
+
+}
+
 
 re_numeric="^[0-9]{1,4}$"
 SECRET_NUM=$(( $RANDOM % 1001 ))
