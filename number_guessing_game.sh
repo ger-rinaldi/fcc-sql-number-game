@@ -34,6 +34,19 @@ function RETRIEVE_PLAYER_STATS(){
 
 }
 
+function USER_WELCOME(){
+  
+  if [[ $PLAYER_EXISTS == '1' ]]
+  then
+    RETRIEVE_PLAYER_STATS $INPUT_USERNAME
+    echo "Welcome back, $INPUT_USERNAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
+  else
+    echo "Welcome, $INPUT_USERNAME! It looks like this is your first time here."
+    INSERT_NEW_PLAYER $INPUT_USERNAME
+  fi
+
+}
+
 re_numeric="^[0-9]{1,4}$"
 SECRET_NUM=$(( $RANDOM % 1001 ))
 TOTAL_GUESSES=0
