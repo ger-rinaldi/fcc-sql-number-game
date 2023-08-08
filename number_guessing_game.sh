@@ -9,6 +9,30 @@ function INPUT_USER_PLAYERNAME(){
 
 }
 
+function CHECK_PLAYER_EXISTS(){
+
+  local USERNAME=$1
+
+  PLAYER_EXISTS=$($PSQL "SELECT 1 FROM players WHERE name = '$USERNAME'")
+
+}
+
+function INSERT_NEW_PLAYER(){
+
+  local USERNAME=$1
+
+  INSERT_RESULT=$($PSQL "INSERT INTO players(name) VALUES ('$USERNAME')")
+
+}
+
+function RETRIEVE_PLAYER_STATS(){
+
+  local USERNAME=$1
+
+  GAMES_PLAYED=$($PSQL "SELECT games_played FROM players WHERE name = '$USERNAME'")
+  BEST_GAME=$($PSQL "SELECT best_game FROM players WHERE name = '$USERNAME'")
+
+}
 
 re_numeric="^[0-9]{1,4}$"
 SECRET_NUM=$(( $RANDOM % 1001 ))
